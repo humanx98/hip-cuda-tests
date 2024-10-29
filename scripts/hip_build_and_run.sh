@@ -8,9 +8,9 @@ root_dir=$(realpath "$script_dir/../")
 cmake --build "$root_dir/build"
 cd "$root_dir/build/src/hip"
 
-# ./app
+./app
 
 trace_type="hip-trace --hip-activity"
 trace_dir="out_traces"
 trace_file="$trace_type"
-rocprofv2 --$trace_type -d $trace_dir -o $trace_file --plugin perfetto ./app
+# rocprofv2 --$trace_type -d $trace_dir -o $trace_file --plugin perfetto ./app
