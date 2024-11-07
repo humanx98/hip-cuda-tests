@@ -13,10 +13,15 @@ void hip_print_devices(int selected_device) {
     int device_count = -1;
     HIP_CHECK(hipGetDeviceCount(&device_count));
 
+    printf("devices:\n");
     for (int i = 0; i < device_count; i++) {
         hipDeviceProp_t properties;
         HIP_CHECK(hipGetDeviceProperties(&properties, i));
-        printf("%d. %s (%s)\n", i, properties.name, properties.gcnArchName);
+        if (selected_device == i) {
+            printf("\t%d. %s (%s, selected)\n", i, properties.name, properties.gcnArchName);
+        } else {
+            printf("\t%d. %s (%s)\n", i, properties.name, properties.gcnArchName);
+        }
     }
 
     if (selected_device >= device_count) {

@@ -9,5 +9,8 @@ set(HEADERS stb_impl.h)
 set(SOURCES stb_impl.cpp)
 
 add_library(stb_impl STATIC ${SOURCES} ${HEADERS})
-target_include_directories(stb_impl PUBLIC ${stb_SOURCE_DIR})
+target_include_directories(stb_impl
+    PUBLIC ${stb_SOURCE_DIR}
+    PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}
+)
 

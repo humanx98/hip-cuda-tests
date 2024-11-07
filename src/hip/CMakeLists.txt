@@ -44,11 +44,13 @@ add_custom_target(
 )
 
 set(HEADERS
+    cases/pass_writes.h
     cases/mem_transfers.h
     hip_common.h
 )
 
 set(SOURCES
+    cases/pass_writes.cpp
     cases/mem_transfers.cpp
     hip_common.cpp
     main.cpp
