@@ -6,7 +6,7 @@
 
 int main(int argc, const char* argv[]) {
     std::filesystem::path kernel_path = std::filesystem::path(argv[0]).parent_path() / "hip_kernels.hipfb";
-    int case_num = 1;
+    int case_num = 0;
     int device_index = 0;
     hip_print_devices(device_index);
     switch (case_num) {
