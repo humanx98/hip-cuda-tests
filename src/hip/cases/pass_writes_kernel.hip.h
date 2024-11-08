@@ -14,13 +14,12 @@
 #define atomic_add_and_fetch_float(p, x) (atomicAdd((float *)(p), (float)(x)) + (float)(x))
 
 struct KernelParams {
+    size_t pass_offsets[PASS_COUNT];
     float iteration;
-    int pass_offsets[PASS_COUNT];
     int pass_writes;
 };
 
 __constant__ KernelParams kernel_params;
-
 
 __device__ float4 film_write_pass_float4(float *__restrict__ buffer, float4 value)
 {

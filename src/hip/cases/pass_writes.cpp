@@ -5,7 +5,7 @@
 #include <hip/hip_runtime.h>
 #include <iostream>
 
-#define LOOP_ITERATIONS 6000
+#define LOOP_ITERATIONS 10000
 
 #define PASS_COUNT 5
 #define PASS0_WRITE 1 << 0
@@ -14,8 +14,8 @@
 #define PASS3_WRITE 1 << 3
 
 struct KernelParams {
+    size_t pass_offsets[PASS_COUNT];
     float iteration;
-    int pass_offsets[PASS_COUNT];
     int pass_writes;
 };
 
