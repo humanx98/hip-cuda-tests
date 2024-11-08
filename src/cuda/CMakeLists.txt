@@ -13,7 +13,7 @@ set(cuda_kernels_compile_options
 
 add_custom_target(
     cuda_kernels
-    COMMAND ${CUDA_NVCC_EXECUTABLE}  ${cuda_kernels_compile_options}
+    COMMAND ${CUDAToolkit_NVCC_EXECUTABLE}  ${cuda_kernels_compile_options}
     COMMENT "Compiling cuda kernels"
 )
 
