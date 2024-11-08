@@ -25,3 +25,7 @@ if(HIPCC_EXECUTABLE)
 else()
     message(WARNING "Hip not found.")
 endif()
+
+if (NOT CUDA_EXECUTABLE AND NOT HIPCC_EXECUTABLE)
+    message(FATAL_ERROR "Cuda and hip not found")
+endif()
