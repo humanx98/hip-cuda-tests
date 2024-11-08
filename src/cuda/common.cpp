@@ -1,4 +1,4 @@
-#include "hip_common.h"
+#include "common.h"
 #include <cstdlib>
 #include <cstdio>
 

@@ -11,4 +11,17 @@ set(FETCHCONTENT_QUIET FALSE)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 add_subdirectory(src/stb_impl)
-add_subdirectory(src/hip)
+
+find_file(CUDA_EXECUTABLE hipcc)
+if(CUDA_EXECUTABLE)
+    add_subdirectory(src/cuda)
+else()
+    message(WARNING "Cuda not found.")
+endif()
+
+find_file(HIPCC_EXECUTABLE hipcc)
+if(HIPCC_EXECUTABLE)
+    add_subdirectory(src/hip)
+else()
+    message(WARNING "Hip not found.")
+endif()

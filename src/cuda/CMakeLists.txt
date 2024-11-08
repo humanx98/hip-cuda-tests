@@ -8,9 +8,9 @@ endif()
 
 find_package(hip REQUIRED)
 
-find_file(HIPCC_EXECUTABLE hipcc HINTS ${ROCM_PATH} PATH_SUFFIXES bin)
-if(NOT HIPCC_EXECUTABLE)
-    message(FATAL_ERROR "hipcc is missing")
+find_file(NVCC_EXECUTABLE hipcc HINTS ${ROCM_PATH} PATH_SUFFIXES bin)
+if(NOT NVCC_EXECUTABLE)
+    message(FATAL_ERROR "nvcc is missing")
 endif()
 
 # set(hip_binaries_arch 
@@ -19,28 +19,28 @@ endif()
 #     gfx1010 gfx1011 gfx1012 gfx1013  # Navi1
 #     gfx900 gfx902 gfx904 gfx906 gfx908 gfx909 gfx90a gfx90c gfx940 gfx941 gfx942
 #     CACHE STRING "AMD HIP architectures to build binaries for")
-set(hip_binaries_arch gfx1030 gfx1031 gfx90c CACHE STRING "AMD HIP architectures to build binaries for")
+set(cuda_binaries_arch gfx1030 gfx1031 gfx90c CACHE STRING "AMD HIP architectures to build binaries for")
 set(target_gpus)
-foreach(arch ${hip_binaries_arch})
+foreach(arch ${cuda_binaries_arch})
     list(APPEND target_gpus "--offload-arch=${arch}")
 endforeach()
 
-set(hip_kernels_compile_options
+set(cuda_kernels_compile_options
     -O3
     -std=c++17
     ${target_gpus}
     -fgpu-rdc
     --genco
-    ${CMAKE_CURRENT_SOURCE_DIR}/kernels.hip.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/kernels.cu.cpp
     -I ${CMAKE_CURRENT_SOURCE_DIR}/
     -D HIPCC
     -ffast-math
-    -o ${CMAKE_CURRENT_BINARY_DIR}/hip_kernels.hipfb)
+    -o ${CMAKE_CURRENT_BINARY_DIR}/cuda_kernels.cufb)
 
 add_custom_target(
-    hip_kernels
-    COMMAND ${HIPCC_EXECUTABLE}  ${hip_kernels_compile_options}
-    COMMENT "Compiling hip kernels"
+    cuda_kernels
+    COMMAND ${NVCC_EXECUTABLE}  ${cuda_kernels_compile_options}
+    COMMENT "Compiling cuda kernels"
 )
 
 set(HEADERS
@@ -56,7 +56,7 @@ set(SOURCES
     main.cpp
 )
 
-add_executable(hip_app ${HEADERS} ${SOURCES})
-add_dependencies(hip_app hip_kernels)
-target_link_libraries(hip_app hip::host stb_impl)
-target_include_directories(hip_app PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
+add_executable(cuda_app ${HEADERS} ${SOURCES})
+add_dependencies(cuda_app cuda_kernels)
+target_link_libraries(cuda_app hip::host stb_impl)
+target_include_directories(cuda_app PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
