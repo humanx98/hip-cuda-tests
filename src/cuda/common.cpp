@@ -2,25 +2,32 @@
 #include <cstdlib>
 #include <cstdio>
 
-void hip_check(const char * file, const int line, hipError_t err, const char* expression) {
-    if (err != hipSuccess) {
+void cuda_check(const char * file, const int line, cudaError_t err, const char* expression) {
+    if (err != cudaSuccess) {
         printf("%s:%d: \"%s\" returned error %d\n", file, line, expression, err);
         std::abort();
     }
 }
 
-void hip_print_devices(int selected_device) {
+void cu_check(const char * file, const int line, CUresult err, const char* expression) {
+    if (err != CUDA_SUCCESS) {
+        printf("%s:%d: \"%s\" returned error %d\n", file, line, expression, err);
+        std::abort();
+    }
+}
+
+void cuda_print_devices(int selected_device) {
     int device_count = -1;
-    HIP_CHECK(hipGetDeviceCount(&device_count));
+    CUDA_CHECK(cudaGetDeviceCount(&device_count));
 
     printf("devices:\n");
     for (int i = 0; i < device_count; i++) {
-        hipDeviceProp_t properties;
-        HIP_CHECK(hipGetDeviceProperties(&properties, i));
+        cudaDeviceProp properties;
+        CUDA_CHECK(cudaGetDeviceProperties(&properties, i));
         if (selected_device == i) {
-            printf("\t%d. %s (%s, selected)\n", i, properties.name, properties.gcnArchName);
+            printf("\t%d. %s (selected)\n", i, properties.name);
         } else {
-            printf("\t%d. %s (%s)\n", i, properties.name, properties.gcnArchName);
+            printf("\t%d. %s\n", i, properties.name);
         }
     }
 

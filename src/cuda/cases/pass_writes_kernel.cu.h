@@ -1,7 +1,7 @@
 #pragma once
 
 #include <cstdint>
-#include <hip/hip_runtime.h>
+#include <cuda_runtime.h>
 
 #define PASS_COUNT 5
 

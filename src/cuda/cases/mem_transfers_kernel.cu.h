@@ -1,6 +1,6 @@
 #pragma once
 
-#include <hip/hip_runtime.h>
+#include <cuda_runtime.h>
 
 extern "C" __global__ void mem_transfers_kernel(float* pixels, int2 resolution)
 {

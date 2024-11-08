@@ -15,7 +15,7 @@ int main(int argc, const char* argv[]) {
             mem_transfers(device_index, kernel_path.c_str());
             break;
         case 1: 
-            std::cout << "case: global mem writes" << std::endl;
+            std::cout << "case: pass writes" << std::endl;
             pass_writes(device_index, kernel_path.c_str());
             break;
     }

@@ -34,7 +34,6 @@ set(hip_kernels_compile_options
     ${CMAKE_CURRENT_SOURCE_DIR}/kernels.hip.cpp
     -I ${CMAKE_CURRENT_SOURCE_DIR}/
     -D HIPCC
-    -ffast-math
     -o ${CMAKE_CURRENT_BINARY_DIR}/hip_kernels.hipfb)
 
 add_custom_target(
