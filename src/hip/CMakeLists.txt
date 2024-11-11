@@ -33,7 +33,6 @@ set(hip_kernels_compile_options
     --genco
     ${CMAKE_CURRENT_SOURCE_DIR}/kernels.hip.cpp
     -I ${CMAKE_CURRENT_SOURCE_DIR}/
-    -D HIPCC
     -o ${CMAKE_CURRENT_BINARY_DIR}/hip_kernels.hipfb)
 
 add_custom_target(

@@ -3,12 +3,10 @@ find_package(CUDAToolkit REQUIRED)
 set(cuda_kernels_compile_options
     -arch=sm_86
     --cubin ${CMAKE_CURRENT_SOURCE_DIR}/kernels.cu
-    -D NVCC
     -m 64
     -o ${CMAKE_CURRENT_BINARY_DIR}/cuda_kernels.cubin
     -Wno-deprecated-gpu-targets
     -ccbin="/usr/bin/cc"
-    -D WITH_NANOVDB
     -std=c++17)    
 
 add_custom_target(
